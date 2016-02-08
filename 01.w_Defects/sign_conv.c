@@ -8,6 +8,8 @@
 *
 */
 
+#include "HeaderFile.h"
+
 int rand (void);
 
 /*
@@ -19,6 +21,7 @@ void sign_conv_001 ()
 	unsigned char a = 0xff;
 	char ret;
 	ret = a; /*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -30,6 +33,7 @@ void sign_conv_002 ()
 	unsigned short a = 0xffff;
 	short ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -41,6 +45,7 @@ void sign_conv_003 ()
 	unsigned int a = 0xffffffff;
 	int ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -52,6 +57,7 @@ void sign_conv_004 ()
 	unsigned long a = 0xffffffff;
 	long ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -63,6 +69,7 @@ void sign_conv_005 ()
 	char a = -1;
 	unsigned char ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -74,6 +81,7 @@ void sign_conv_006 ()
 	short a = -1;
 	unsigned short ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -85,6 +93,7 @@ void sign_conv_007 ()
 	int a = -1;
 	unsigned int ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -96,6 +105,7 @@ void sign_conv_008 ()
 	long a = -1;
 	unsigned long ret;
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -138,6 +148,7 @@ void sign_conv_011 ()
 {
 	unsigned int ret;
 	ret = -1;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -154,6 +165,7 @@ void sign_conv_012 ()
 	a = rand() - 1073741823;
 
 	ret = a;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -165,6 +177,7 @@ void sign_conv_013 ()
 	int a = -1;
 	unsigned int ret;
 	ret = (5 * a) + 4;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -176,6 +189,7 @@ void sign_conv_014 ()
 	int a = 2;
 	unsigned int ret;
 	ret = (a * a) - 5;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -230,6 +244,7 @@ void sign_conv_018 ()
 	unsigned int ret;
 	a1 = a;
 	ret = a1;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*
@@ -245,6 +260,7 @@ void sign_conv_019 ()
 	a1 = a;
 	a2 = a1;
 	ret = a2;/*Tool should detect this line as error*/ /*Integer sign lost because of unsigned cast */
+        sink = ret;
 }
 
 /*

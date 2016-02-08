@@ -16,7 +16,7 @@
 */
 #include "HeaderFile.h"
 
-#define MAX_VAL 4294967295UL
+#define MAX_VAL UINT_MAX
 
 unsigned int memory_allocation_failure_005_gbl = 65536;
 
@@ -215,22 +215,17 @@ static unsigned int static_var = MAX_VAL*2;
 static char * memory_allocation_failure_007_func_001 (char *str1)
 {
     int j;
-    if (str1 != NULL)
-    {
-        memory_allocation_failure_007_str_gbl = (char *) malloc(static_var+1);/*Tool should detect this line as error*/ /*ERROR:Memory allocation failure */
-        if(memory_allocation_failure_007_str_gbl!=NULL)
-        {
-        for (j = 0; j < static_var; j++)
-        {
-            memory_allocation_failure_007_str_gbl[j] = str1[static_var-j-1];
+    if (str1 != NULL) {
+      memory_allocation_failure_007_str_gbl = (char *) malloc(static_var+1);/*Tool should detect this line as error*/ /*ERROR:Memory allocation failure */
+      if(memory_allocation_failure_007_str_gbl!=NULL) {
+        for (j = 0; j < static_var; j++) {
+          memory_allocation_failure_007_str_gbl[j] = str1[static_var-j-1];
         }
         memory_allocation_failure_007_str_gbl[static_var] = '\0';
-        }
-        return memory_allocation_failure_007_str_gbl;
-    }
-    else
-    {
-        return NULL;
+      }
+      return memory_allocation_failure_007_str_gbl;
+    } else {
+      return NULL;
     }
 }
 
@@ -255,7 +250,7 @@ void memory_allocation_failure_007 ()
 enum {max_buffer = MAX_VAL*2};
 char * memory_allocation_failure_008_func_001 (const char *msg) {
   const char *error_log = msg;
-  char * buffer ;
+  char * buffer = 0;
   int i;
   for(i=0;i<max_buffer;i++)
   {
@@ -263,7 +258,7 @@ char * memory_allocation_failure_008_func_001 (const char *msg) {
        break;
   }
   if(buffer!=NULL)
-  snprintf(buffer, sizeof(buffer), "Error: %s", error_log);
+    snprintf(buffer, max_buffer * sizeof(char), "Error: %s", error_log);
   return buffer;
 }
 void memory_allocation_failure_008 ()
@@ -473,7 +468,7 @@ int memory_allocation_failure_013_func_001(int flag)
 void memory_allocation_failure_013 ()
 {
 	char  **dptr,a;
-	double *ptr,b;
+	double *ptr,b = 0.0;
 	int i;
 
 
@@ -516,6 +511,7 @@ void memory_allocation_failure_013 ()
     	dptr = NULL;
     }
     printf("%d",a);
+    sink = b;
 }
 
 /*
@@ -550,7 +546,7 @@ int (*memory_allocation_failure_014_func_001())[4]
 void memory_allocation_failure_014 ()
 {
 	int (*ptr1)[4];
-	char  **dptr,a;
+	char  **dptr,a = 0;
 	double *ptr,b;
 	int i,j;
 	static int staticflag=10;

@@ -170,7 +170,7 @@ void lock_never_unlock_003 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t tid1,tid2;
-	int t1 = 10, t2 = 20;
+	intptr_t t1 = 10, t2 = 20;
 	pthread_mutex_init(&lock_never_unlock_003_glb_mutex, NULL);
 	pthread_create(&tid1, NULL, lock_never_unlock_003_tsk_001, (void *)t1);
 	pthread_create(&tid2, NULL, lock_never_unlock_003_tsk_001, (void *)t2);
@@ -243,7 +243,7 @@ void lock_never_unlock_004 ()
 	   long int t2 = 20;
 	   pthread_create(&th1, NULL, lock_never_unlock_004_tsk_001, (void *)t1);
 	   pthread_create(&th2, NULL, lock_never_unlock_004_tsk_002, (void *)t2);
-	   sleep(0.1);
+	   sleep(1);
 #endif /* defined(CHECKER_POLYSPACE) */
 }
 
@@ -347,7 +347,7 @@ void lock_never_unlock_006 ()
 	{
 		pthread_create(&th1, NULL, lock_never_unlock_006_tsk_001, (void *)t1);
 		pthread_create(&th2, NULL, lock_never_unlock_006_tsk_002, (void *)t2);
-		sleep(0.1);
+		sleep(1);
 	}
 #endif /* defined(CHECKER_POLYSPACE) */
 }
@@ -500,7 +500,7 @@ void lock_never_unlock_008 ()
 	   {
 		   pthread_create(&th1, NULL, lock_never_unlock_008_tsk_001, (void *)t1);
 		   pthread_create(&th2, NULL, lock_never_unlock_008_tsk_002, (void *)t2);
-		   sleep(0.1);
+		   sleep(1);
 	   }
 
 #endif /* defined(CHECKER_POLYSPACE) */

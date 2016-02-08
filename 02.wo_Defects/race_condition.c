@@ -67,8 +67,8 @@ void race_condition_001()
 	pthread_mutex_init(&glb_1_mutex,NULL);
 	pthread_mutex_init(&glb_2_mutex,NULL);
 
-	int stat1= pthread_create(&pthread1,NULL,race_condition_001_1,NULL);
-	int stat2= pthread_create(&pthread2,NULL,race_condition_001_2,NULL);
+	pthread_create(&pthread1,NULL,race_condition_001_1,NULL);
+	pthread_create(&pthread2,NULL,race_condition_001_2,NULL);
 
 	pthread_join(pthread1,NULL);
 	pthread_join(pthread2,NULL);
@@ -92,8 +92,6 @@ void* race_condition_002_1()
 	
 		if(race_condition_002_gbl<100)
 		{
-			int i;
-			i=10;
 			race_condition_002_gbl++; /*Tool should not detect this line as error*/ /*No ERROR:Race condition*/
 		}
 
@@ -110,8 +108,8 @@ void race_condition_002()
 	{
 		pthread_t pthread1,pthread2;
 
-		int stat1= pthread_create(&pthread1,NULL,race_condition_002_1,NULL);
-		int stat2= pthread_create(&pthread2,NULL,race_condition_002_1,NULL);
+		pthread_create(&pthread1,NULL,race_condition_002_1,NULL);
+		pthread_create(&pthread2,NULL,race_condition_002_1,NULL);
 
 		pthread_join(pthread1,NULL);
 		pthread_join(pthread2,NULL);
@@ -343,7 +341,7 @@ void race_condition_007 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t tid1,tid2;
-	int t1 = 10, t2 = 20;
+	intptr_t t1 = 10, t2 = 20;
 	pthread_mutex_init(&race_condition_007_glb_mutex, NULL);
 	pthread_create(&tid1, NULL, race_condition_007_tsk_001, (void *)t1);
 	pthread_create(&tid2, NULL, race_condition_007_tsk_001, (void *)t2);
@@ -414,11 +412,11 @@ void race_condition_008 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-	   long int t1 = 10;
-	   long int t2 = 20;
+        intptr_t t1 = 10;
+        intptr_t t2 = 20;
 	   pthread_create(&th1, NULL, race_condition_008_tsk_001, (void *)t1);
 	   pthread_create(&th2, NULL, race_condition_008_tsk_002, (void *)t2);
-	   sleep(0.1);
+	   sleep(1);
 #endif /* defined(CHECKER_POLYSPACE) */
 }
 

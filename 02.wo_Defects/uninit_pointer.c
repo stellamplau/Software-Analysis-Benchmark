@@ -27,6 +27,7 @@ void uninit_pointer_001 ()
 	int *p = &a;
 	int ret;
 	ret = *p; /*Tool should not detect this line as error*/ /*No ERROR:Uninitialized pointer*/
+        sink = ret;
 }
 
 /*
@@ -53,6 +54,7 @@ void uninit_pointer_003 ()
 	p = &a;
 	pp = &p;
 	ret = **pp; /*Tool should not detect this line as error*/ /*No ERROR:Uninitialized pointer*/
+        sink = ret;
 }
 
 /*
@@ -63,6 +65,7 @@ void uninit_pointer_004_func_001 (int *p)
 {
 	int ret=10;
 	*p = ret;
+        sink = ret;
 }
 void uninit_pointer_004 ()
 {
@@ -89,6 +92,7 @@ void uninit_pointer_005_func_001 (int *pbuf[])
 	pbuf[4] = buf5;
 	int ret;
 	ret = pbuf[1][1];
+        sink = ret;
 
 }
 void uninit_pointer_005 ()
@@ -119,19 +123,25 @@ void uninit_pointer_006 ()
 */
 void uninit_pointer_007 ()
 {
-	char *buf1="String1";
-	char *buf2="String2";
-	char *buf3="String3";
-	char *buf4="String4";
-	char *buf5="String5";
+        char *buf1=strdup("String1");
+	char *buf2=strdup("String2");
+	char *buf3=strdup("String3");
+	char *buf4=strdup("String4");
+	char *buf5=strdup("String5");
+        if (!buf1 || !buf2 || !buf3 || !buf4 || !buf5) return;
 	char **pbuf[5] = {&buf1, &buf2, &buf3, &buf4, &buf5};
 	int i,j=4;
 
 	for(i=0;i<5;i++)
 	{
-		*((*pbuf[i])+j)='a'; /*Tool should not detect this line as error*/ /*No ERROR:Uninitialized pointer*/
+          *((*pbuf[i])+j)='a'; /*Tool should not detect this line as error*/ /*No ERROR:Uninitialized pointer*/
 	    printf("uninit %c \n",*((*pbuf[i])+j));
 	}
+        free(buf1);
+        free(buf2);
+        free(buf3);
+        free(buf4);
+        free(buf5);
 }
 
 /*
@@ -197,12 +207,13 @@ void uninit_pointer_010_func_001 (void * vptr)
     char * * cptr = (char * *)vptr;
     char * buf = "String";
     buf = (*cptr); /*Tool should not detect this line as error*/ /*No ERROR:Uninitialized pointer*/
+    sink = buf[idx];
 }
 void uninit_pointer_010 ()
 {
     void *buf1;
 	buf1 = "String Test";
-    uninit_pointer_010_func_001(&buf1);
+    uninit_pointer_010_func_001(&buf1);    
 }
 
 /*
@@ -337,6 +348,8 @@ void uninit_pointer_014 ()
 	    r = *s; /*Tool should not detect this line as error*/ /*No ERROR:Uninitialized pointer*/
 	    free(s);
 	}
+        r.a = 0;
+        sink = r.a;
 }
 
 /*

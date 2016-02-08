@@ -8,6 +8,8 @@
 * Description: Defect Free Code to identify false positives in unintentional endless looping
 */
 
+#include "HeaderFile.h"
+
 /*
  * Types of defects: infinite loop
  * Complexity: the for statement	No ongoing condition equation
@@ -26,6 +28,7 @@ void endless_loop_001 ()
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -43,6 +46,7 @@ void endless_loop_002 ()
 		i ++; /*Tool should Not detect this line as error*/ /*No ERROR:Unintentional end less loop*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -62,6 +66,7 @@ void endless_loop_003 ()
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -82,6 +87,7 @@ void endless_loop_004 ()
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -106,6 +112,7 @@ void endless_loop_005 ()
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -125,6 +132,7 @@ void endless_loop_006_func_001 (int flag)
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 void endless_loop_006 ()
@@ -150,6 +158,7 @@ void endless_loop_007 ()
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -170,6 +179,7 @@ void endless_loop_008 ()
 		}
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -190,6 +200,7 @@ void endless_loop_009 ()
 	}
 	while (1); /*Tool should Not detect this line as error*/ /*No ERROR:Unintentional end less loop*/
 	ret = a;
+        sink = ret;
 }
 
 /*

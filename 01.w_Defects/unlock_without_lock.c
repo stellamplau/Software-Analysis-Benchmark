@@ -92,13 +92,13 @@ int const unlock_without_lock_002_var = 10;
 void * unlock_without_lock_002_tsk_001 (void * pram)
 {
 #if !defined(CHECKER_POLYSPACE)
-	if(unlock_without_lock_002_var == (int)pram)
+	if(unlock_without_lock_002_var == (intptr_t)pram)
 	{
 		pthread_mutex_lock(&unlock_without_lock_002_glb_mutex);
 	    unlock_without_lock_002_glb_data = (unlock_without_lock_002_glb_data % 100) + 1;
 	    pthread_mutex_unlock(&unlock_without_lock_002_glb_mutex);
 	}
-	if(unlock_without_lock_002_var == (int)pram)
+	if(unlock_without_lock_002_var == (intptr_t)pram)
 	{
 		/*pthread_mutex_lock(&unlock_without_lock_002_glb_mutex);*/
 	    unlock_without_lock_002_glb_data = (unlock_without_lock_002_glb_data % 100) + 1;
@@ -116,8 +116,8 @@ void unlock_without_lock_002 ()
 {
 #if !defined(CHECKER_POLYSPACE)
 	pthread_t tid1,tid2;
-	int const unlock_without_lock_002_t1 = 10;
-	int const unlock_without_lock_002_t2 = 20;
+	intptr_t const unlock_without_lock_002_t1 = 10;
+	intptr_t const unlock_without_lock_002_t2 = 20;
 	pthread_mutex_init(&unlock_without_lock_002_glb_mutex, NULL);
 	pthread_create(&tid1, NULL, unlock_without_lock_002_tsk_001, (void *)unlock_without_lock_002_t1);
 	pthread_create(&tid2, NULL, unlock_without_lock_002_tsk_001, (void *)unlock_without_lock_002_t2);
@@ -157,34 +157,33 @@ void unlock_without_lock_003_func_001 (void *pram)
 {
 #if ! defined(CHECKER_POLYSPACE)
 
-    if(unlock_without_lock_003_func_002(0) >1)
+  if(unlock_without_lock_003_func_002(0) >1)
     {
-    	pthread_mutex_lock (&unlock_without_lock_003_glb_mutex);/*Tool should detect this line as error*/ /* ERROR:UnLock without lock */
+      pthread_mutex_lock (&unlock_without_lock_003_glb_mutex);/*Tool should detect this line as error*/ /* ERROR:UnLock without lock */
     }
-    unlock_without_lock_003_glb_data = (unlock_without_lock_003_glb_data) + 1.2;
-
+  unlock_without_lock_003_glb_data = (unlock_without_lock_003_glb_data) + 1.2;
+  
 #if defined PRINT_DEBUG
-	int ip = (int)pram;
-	printf("Task3! Unlock without Lock, thread # %d! gbl3 = %f \n",ip ,unlock_without_lock_003_glb_data);
+  int ip = (intptr_t)pram;
+  printf("Task3! Unlock without Lock, thread # %d! gbl3 = %f \n",ip ,unlock_without_lock_003_glb_data);
 #endif /* defined(PRINT_DEBUG) */
-	unlock_without_lock_003_func_002(10);
-    if(unlock_without_lock_003_func_002(10) >1)
+  unlock_without_lock_003_func_002(10);
+  if(unlock_without_lock_003_func_002(10) >1)
     {
-    	pthread_mutex_unlock (&unlock_without_lock_003_glb_mutex);
+      pthread_mutex_unlock (&unlock_without_lock_003_glb_mutex);
     }
 #endif /* ! defined(CHECKER_POLYSPACE) */
 }
 
 int unlock_without_lock_003_func_002 (int a )
 {
-    int ret = 0;
-	if (a > 1)
-    {
-    	ret = a++;
-    }
-    else
-    	ret = 0;
-    return ret;
+  int ret = 0;
+  if (a > 1) {
+    ret = a++;
+  } else {
+    ret = 0;
+  }
+  return ret;
 }
 
 void* unlock_without_lock_003_tsk_001 (void *pram)
@@ -209,7 +208,7 @@ void unlock_without_lock_003 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t tid1,tid2;
-	int t1 = 10, t2 = 20;
+	intptr_t t1 = 10, t2 = 20;
 	pthread_mutex_init(&unlock_without_lock_003_glb_mutex, NULL);
 	pthread_create(&tid1, NULL, unlock_without_lock_003_tsk_001, (void *)t1);
 	pthread_create(&tid2, NULL, unlock_without_lock_003_tsk_001, (void *)t2);
@@ -293,11 +292,11 @@ void unlock_without_lock_004 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-	long int t1 = 10;
-	long int t2 = 20;
+	intptr_t t1 = 10;
+	intptr_t t2 = 20;
     pthread_create(&th1, NULL, unlock_without_lock_004_tsk_001, (void *)t1);
     pthread_create(&th2, NULL, unlock_without_lock_004_tsk_002, (void *)t2);
-	sleep(0.1);
+	sleep(1);
 #endif /* defined(CHECKER_POLYSPACE) */
 }
 
@@ -406,8 +405,8 @@ void unlock_without_lock_006 ()
 	int thread_set = 0;
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-    long int t1 = 10;
-	long int t2 = 20;
+        intptr_t t1 = 10;
+	intptr_t t2 = 20;
 	if ( thread_set == CREATE_THREAD)
 	{
 	   ;
@@ -416,7 +415,7 @@ void unlock_without_lock_006 ()
 	{
 		pthread_create(&th1, NULL, unlock_without_lock_006_tsk_001, (void *)t1);
 		pthread_create(&th2, NULL, unlock_without_lock_006_tsk_002, (void *)t2);
-		sleep(0.1);
+		sleep(1);
 	}
 
 #endif /* defined(CHECKER_POLYSPACE) */
@@ -484,8 +483,8 @@ void unlock_without_lock_007 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-	   long int t1 = 10;
-	   long int t2 = 20;
+	   intptr_t t1 = 10;
+	   intptr_t t2 = 20;
 	   pthread_create(&th1, NULL, unlock_without_lock_007_tsk_001, (void *)t1);
 	   pthread_create(&th2, NULL, unlock_without_lock_007_tsk_002, (void *)t2);
 	   pthread_join(th1, NULL);
@@ -556,8 +555,8 @@ void unlock_without_lock_008 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-	   long int t1 = 10;
-	   long int t2 = 20;
+	   intptr_t t1 = 10;
+	   intptr_t t2 = 20;
 	   pthread_create(&th1, NULL, unlock_without_lock_008_tsk_001, (void *)t1);
 	   pthread_create(&th2, NULL, unlock_without_lock_008_tsk_002, (void *)t2);
 	   pthread_join(th1, NULL);

@@ -259,7 +259,7 @@ void memory_allocation_failure_007 ()
 enum {max_buffer = MAX_VAL*2};
 char * memory_allocation_failure_008_func_001 (const char *msg) {
   const char *error_log = msg;
-  char * buffer ;
+  char * buffer = 0;
   int i;
   for(i=0;i<max_buffer;i++)
   {
@@ -267,7 +267,7 @@ char * memory_allocation_failure_008_func_001 (const char *msg) {
        break;
   }
   if(buffer!=NULL)
-  snprintf(buffer, sizeof(buffer), "Error: %s", error_log);
+    snprintf(buffer, max_buffer * sizeof(char), "Error: %s", error_log);
   return buffer;
 }
 
@@ -476,23 +476,29 @@ int memory_allocation_failure_013_func_001(int flag)
 
 void memory_allocation_failure_013 ()
 {
+  // JDR: this function is buggy, commenting it out
+#if 0
+
 	char  **dptr,a;
-	double *ptr,b;
+	double *ptr,b = 0.0;
 	int i;
 
 
     if (staticflag == 10)
     {
     	  	ptr= (double*) malloc(10*sizeof(double));
+                if (!ptr) return;
     }
     else
     {
     	  	dptr=(char**) malloc(10*sizeof(char*));
+                if (!dptr) return;
     	  	if(1)
     	  	{
             	for(i=0;i<10;i++)
         	    {
             		dptr[i]=(char*) malloc(memory_allocation_failure_013_func_001(0)*sizeof(char)); /*Tool should not detect this line as error*/ /*No ERROR:Memory allocation failure */
+                        if (!dptr[i]) return;
         	    }
     	  	}
     }
@@ -520,6 +526,9 @@ void memory_allocation_failure_013 ()
     	dptr = NULL;
     }
     printf("%d",a);
+    sink = b;
+
+#endif
 }
 
 /*
@@ -554,7 +563,7 @@ int (*memory_allocation_failure_014_func_001())[4]
 void memory_allocation_failure_014 ()
 {
 	int (*ptr1)[4];
-	char  **dptr,a;
+	char  **dptr,a = 0;
 	double *ptr,b;
 	int i,j;
 	static int staticflag=10;

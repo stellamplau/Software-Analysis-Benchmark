@@ -121,7 +121,7 @@ void * st_cross_thread_access_002_tsk_001 (void * pram)
 {
 #if !defined(CHECKER_POLYSPACE)
 	int arr[5] = {10,20,30,40,50};
-	if(st_cross_thread_access_002_var == (int)pram)
+	if(st_cross_thread_access_002_var == (intptr_t)pram)
 	{
 		pthread_mutex_lock(&st_cross_thread_access_002_glb_mutex);
 	    st_cross_thread_access_002_glb_data = (st_cross_thread_access_002_glb_data % 100) + 1;
@@ -129,7 +129,7 @@ void * st_cross_thread_access_002_tsk_001 (void * pram)
 		*st_cross_thread_access_002_glb_ptr = 200.0;
 		pthread_mutex_unlock(&st_cross_thread_access_002_glb_mutex);
 	}
-	if(st_cross_thread_access_002_var == (int)pram)
+	if(st_cross_thread_access_002_var == (intptr_t)pram)
 	{
 		pthread_mutex_lock(&st_cross_thread_access_002_glb_mutex);
 	    st_cross_thread_access_002_glb_data = (st_cross_thread_access_002_glb_data % 100) + 1;
@@ -146,14 +146,14 @@ void * st_cross_thread_access_002_tsk_001 (void * pram)
 void * st_cross_thread_access_002_tsk_002 (void * pram)
 {
 #if !defined(CHECKER_POLYSPACE)
-	if(st_cross_thread_access_002_var == (int)pram)
+	if(st_cross_thread_access_002_var == (intptr_t)pram)
 	{
 		pthread_mutex_lock(&st_cross_thread_access_002_glb_mutex_1);
 	    st_cross_thread_access_002_glb_data = (st_cross_thread_access_002_glb_data % 100) + 1;
 	     /**st_cross_thread_access_002_glb_ptr = 200.0;*/ /*Tool should not detect this line as error*/ /*No ERROR:Cross thread stack access error*/
 	    pthread_mutex_unlock(&st_cross_thread_access_002_glb_mutex_1);
 	}
-	if(st_cross_thread_access_002_var == (int)pram)
+	if(st_cross_thread_access_002_var == (intptr_t)pram)
 	{
 		pthread_mutex_lock(&st_cross_thread_access_002_glb_mutex_1);
 	    st_cross_thread_access_002_glb_data = (st_cross_thread_access_002_glb_data % 100) + 1;
@@ -171,8 +171,8 @@ void st_cross_thread_access_002 ()
 {
 #if !defined(CHECKER_POLYSPACE)
 	pthread_t tid1,tid2;
-	int const st_cross_thread_access_002_t1 = 10;
-	int const st_cross_thread_access_002_t2 = 10;
+	intptr_t st_cross_thread_access_002_t1 = 10;
+	intptr_t st_cross_thread_access_002_t2 = 10;
 	pthread_mutex_init(&st_cross_thread_access_002_glb_mutex, NULL);
 	pthread_create(&tid1, NULL, st_cross_thread_access_002_tsk_001, (void *)st_cross_thread_access_002_t1);
 	sleep(1);
@@ -223,7 +223,7 @@ void * st_cross_thread_access_003_tsk_001 (void *pram)
         st_cross_thread_access_003_glb_data = (st_cross_thread_access_003_glb_data) + 1.2;
         st_cross_thread_access_003_glb_ptr = &fptr;
 #if defined PRINT_DEBUG
-	    int ip = (int)pram;
+	    intptr_t ip = (intptr_t)pram;
 	    printf("Task3! Cross thread stack access, thread # %d! gbl3 = %f \n",ip ,st_cross_thread_access_003_glb_data);
 #endif /* defined(PRINT_DEBUG) */
     	pthread_mutex_unlock (&st_cross_thread_access_003_glb_mutex);
@@ -260,7 +260,7 @@ void st_cross_thread_access_003 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t tid1,tid2;
-	int t1 = 10, t2 = 20;
+	intptr_t t1 = 10, t2 = 20;
 	pthread_mutex_init(&st_cross_thread_access_003_glb_mutex, NULL);
 	pthread_create(&tid1, NULL, st_cross_thread_access_003_tsk_001, (void *)t1);
 	pthread_create(&tid2, NULL, st_cross_thread_access_003_tsk_002, (void *)t2);
@@ -348,8 +348,8 @@ void st_cross_thread_access_004 ()
 {
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-	   long int t1 = 10;
-	   long int t2 = 20;
+	   intptr_t t1 = 10;
+	   intptr_t t2 = 20;
 	   pthread_create(&th1, NULL, st_cross_thread_access_004_tsk_001, (void *)t1);
 	   pthread_create(&th2, NULL, st_cross_thread_access_004_tsk_002, (void *)t2);
 	   /*pthread_join(th1, NULL);
@@ -511,8 +511,8 @@ void st_cross_thread_access_006 ()
 	int thread_set = 0;
 #if ! defined(CHECKER_POLYSPACE)
 	pthread_t th1,th2;
-	   long int t1 = 10;
-	   long int t2 = 20;
+	   intptr_t t1 = 10;
+	   intptr_t t2 = 20;
 	   if ( thread_set == CREATE_THREAD)
 	   {
            ;
@@ -521,7 +521,7 @@ void st_cross_thread_access_006 ()
 	   {
 		   pthread_create(&th1, NULL, st_cross_thread_access_006_tsk_001, (void *)t1);
 		   pthread_create(&th2, NULL, st_cross_thread_access_006_tsk_002, (void *)t2);
-		   sleep(0.1);
+		   sleep(1);
 	   }
 
 #endif /* defined(CHECKER_POLYSPACE) */

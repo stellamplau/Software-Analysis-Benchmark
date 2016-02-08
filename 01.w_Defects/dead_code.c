@@ -8,6 +8,7 @@
 * Description: Defect Code to identify defects in dead code
 */
 
+#include "HeaderFile.h"
 
 /*
 * Types of defects: dead code
@@ -22,6 +23,7 @@ void dead_code_001 ()
 		a ++; /*Tool should detect this line as error*/ /*ERROR:Dead Code*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -38,6 +40,7 @@ void dead_code_002 ()
 		a ++; /*Tool should detect this line as error*/ /*ERROR:Dead Code*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -58,6 +61,7 @@ void dead_code_003 ()
 		a ++; /*Tool should detect this line as error*/ /*ERROR:Dead Code*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -73,6 +77,7 @@ void dead_code_004_func_001 (int flag)
 		a ++; /*Tool should detect this line as error*/ /*ERROR:Dead Code*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 void dead_code_004 ()
@@ -94,6 +99,7 @@ void dead_code_005 ()
 		a ++; /*Tool should  detect this line as error*/ /* ERROR:Dead Code*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -110,6 +116,7 @@ void dead_code_006 ()
 		a ++; /*Tool should  detect this line as error*/ /* ERROR:Dead Code*/
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -127,6 +134,7 @@ void dead_code_007 ()
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -143,6 +151,7 @@ void dead_code_008 ()
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -160,6 +169,7 @@ void dead_code_009 ()
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -181,6 +191,7 @@ void dead_code_010 ()
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -197,6 +208,7 @@ void dead_code_011_func_001 (int flag)
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 void dead_code_011 ()
@@ -219,6 +231,7 @@ void dead_code_012 ()
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*
@@ -236,6 +249,7 @@ void dead_code_013 ()
 		break;
 	}
 	ret = a;
+        sink = ret;
 }
 
 /*

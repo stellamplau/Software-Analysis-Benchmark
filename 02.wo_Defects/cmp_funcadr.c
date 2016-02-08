@@ -8,7 +8,6 @@
 */
 
 #include "HeaderFile.h"
-#define NULL ((void *)0)
 
 /*
  * Types of defects: comparing function addresses with NULL
@@ -27,6 +26,7 @@ void cmp_funcadr_001 ()
 	{
 		ret = 1;
 	}
+        sink = ret;
 }
 
 /*
@@ -47,6 +47,7 @@ void cmp_funcadr_002 ()
 	{
 		ret = 1;
 	}
+        sink = ret;
 }
 
 /*
